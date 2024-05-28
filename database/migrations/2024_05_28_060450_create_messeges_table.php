@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('messeges', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->longText('message')->nullable();
             $table->foreignId('sender_id')->constrained('users');
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('messeges');
+        Schema::dropIfExists('messages');
     }
 };

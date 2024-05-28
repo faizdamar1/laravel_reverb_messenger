@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('messege_attachments', function (Blueprint $table) {
+        Schema::create('message_attachments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('message_id')->constrained('messages');
             $table->string('name', 255);
             $table->string('path', 1024);
+            $table->string('mime', 255);
+            $table->integer('size');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('messege_attachments');
+        Schema::dropIfExists('message_attachments');
     }
 };
