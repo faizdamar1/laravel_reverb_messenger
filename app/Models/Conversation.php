@@ -29,4 +29,19 @@ class Conversation extends Model
     {
         return $this->belongsTo(User::class, 'last_message_id');
     }
+
+    public static function getConversationForSidebar(User $user)
+    {
+
+        $users = User::getUserExceptUser($user);
+        $groups = Group::getGroupsforUser($user);
+
+        return  $users->map(function (User $user) {
+            return $user->toConversationArray();
+        })->concat(
+            $groups->map(function (Group $group) {
+                return $group->toConversationArray();
+            })
+        );
+    }
 }
