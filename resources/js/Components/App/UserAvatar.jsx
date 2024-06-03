@@ -26,7 +26,7 @@ const UserAvatar = ({ user, online = null, profile = false }) => {
                         <div className={
                             `bg-gray-400 text-gray-800 rounded-full ${sizeClass}`
                         }>
-                            <span className="text-xl">
+                            <span className="text-xl pl-2">
                                 {user.name.substring(0, 1)}
                             </span>
                         </div>

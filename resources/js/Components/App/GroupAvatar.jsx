@@ -4,10 +4,10 @@ const GroupAvatar = () => {
     return (
         <>
             <div className={
-                `avatar placeholder`
+                `chat-image avatar placeholder`
             }>
                 <div className={
-                    `bg-gray-400 text-gray-800 rounded-full 2-8`
+                    `bg-gray-400 text-gray-800 rounded-full w-4`
                 }>
                     <span className="text-xl">
                         <UsersIcon className="w-4" />

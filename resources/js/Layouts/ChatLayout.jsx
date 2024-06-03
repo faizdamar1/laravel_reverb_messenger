@@ -2,6 +2,7 @@ import ConversationItem from "@/Components/App/ConversationItem";
 import TextInput from "@/Components/TextInput";
 import { usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
+import { PencilSquareIcon } from '@heroicons/react/24/solid'
 
 const ChatLayout = ({ children }) => {
 
@@ -105,12 +106,12 @@ const ChatLayout = ({ children }) => {
                     className={`transition-all w-full sm:w-[220px] md:[300px] bg-slate-800 flex 
                         flex-col overflow-hidden ${selectedConversation ? "-ml-[100%] sm:ml-0" : ""}`}
                 >
-                    <div className="flex items-center justify-between py-2 px-3 text-xl font-medium">
+                    <div className="flex items-center justify-between py-2 px-3 text-xl font-medium text-gray-300">
                         My Conversations
                         <div className="tooltop toooltip-left" data-tip="Create new Group">
                             <button className="text-gray-400 hover:text-gray-200">
 
-                                {/* <PencilSquareIcon className="w-4 h-4 inline-block ml-2" /> */}
+                                <PencilSquareIcon className="w-4 h-4 inline-block ml-2" />
                             </button>
                         </div>
                     </div>
