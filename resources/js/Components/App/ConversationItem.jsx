@@ -31,11 +31,11 @@ const ConversationItem = ({
     }
     return (
         <Link
-            // href={
-            //     conversation.is_group
-            //         ? route('chat.group', conversation)
-            //         : route('chat.user', conversation)
-            // }
+            href={
+                conversation.is_group
+                    ? route('chat.group', conversation)
+                    : route('chat.user', conversation)
+            }
             preserveState
             className={
                 "conversation-item flex items-center gap-2 p-2 text-gray-300 transition-all cursor-pointer border-l-4 hover:bg-black/30 "

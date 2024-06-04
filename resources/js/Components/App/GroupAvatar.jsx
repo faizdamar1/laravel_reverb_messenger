@@ -7,7 +7,7 @@ const GroupAvatar = () => {
                 `chat-image avatar placeholder`
             }>
                 <div className={
-                    `bg-gray-400 text-gray-800 rounded-full w-4`
+                    `bg-gray-400 text-gray-800 rounded-full w-8`
                 }>
                     <span className="text-xl">
                         <UsersIcon className="w-4" />

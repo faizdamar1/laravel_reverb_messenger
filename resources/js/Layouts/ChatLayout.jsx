@@ -106,7 +106,7 @@ const ChatLayout = ({ children }) => {
                     className={`transition-all w-full sm:w-[220px] md:[300px] bg-slate-800 flex 
                         flex-col overflow-hidden ${selectedConversation ? "-ml-[100%] sm:ml-0" : ""}`}
                 >
-                    <div className="flex items-center justify-between py-2 px-3 text-xl font-medium text-gray-300">
+                    <div className="flex items-center justify-between py-2 px-3 text-xl font-medium text-gray-200">
                         My Conversations
                         <div className="tooltop toooltip-left" data-tip="Create new Group">
                             <button className="text-gray-400 hover:text-gray-200">
@@ -134,10 +134,11 @@ const ChatLayout = ({ children }) => {
                         ))}
                     </div>
                 </div>
+                <div className="flex-1 flex flex-col overflow-hidden">
+                    {children}
+                </div>
             </div>
-            <div className="flex-1 flex flex-col overflow-hidden">
-                {children}
-            </div>
+
         </>
     );
 }

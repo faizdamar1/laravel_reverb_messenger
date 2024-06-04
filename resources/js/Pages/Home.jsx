@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 function Home({ auth }) {
     return (
-        <>Home</>
+        <>Message</>
     );
 }
 
