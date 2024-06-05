@@ -9,7 +9,7 @@ class Message extends Model
 {
     use HasFactory;
 
-     protected $fillable = [
+    protected $fillable = [
         'message',
         'sender_id',
         'group_id',
@@ -33,6 +33,6 @@ class Message extends Model
 
     public function attachment()
     {
-        return $this->hasMany(Attachment::class);
+        return $this->hasMany(MessageAttachment::class);
     }
 }

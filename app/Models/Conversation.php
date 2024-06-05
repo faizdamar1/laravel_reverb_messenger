@@ -44,4 +44,12 @@ class Conversation extends Model
             })
         );
     }
+
+    public static function updateConversationWithMessage()
+    {
+    }
+
+    public static function updateGroupWithMessage()
+    {
+    }
 }
