@@ -103,14 +103,13 @@ const ChatLayout = ({ children }) => {
         <>
             <div className="flex-1 w-full flex overflow-hidden">
                 <div
-                    className={`transition-all w-full sm:w-[220px] md:[300px] bg-slate-800 flex 
+                    className={`transition-all w-full sm:w-[270px] md:[300px] bg-slate-800 flex 
                         flex-col overflow-hidden ${selectedConversation ? "-ml-[100%] sm:ml-0" : ""}`}
                 >
                     <div className="flex items-center justify-between py-2 px-3 text-xl font-medium text-gray-200">
                         My Conversations
                         <div className="tooltop toooltip-left" data-tip="Create new Group">
                             <button className="text-gray-400 hover:text-gray-200">
-
                                 <PencilSquareIcon className="w-4 h-4 inline-block ml-2" />
                             </button>
                         </div>

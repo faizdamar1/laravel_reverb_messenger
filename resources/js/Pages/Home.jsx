@@ -1,9 +1,24 @@
 import ChatLayout from '@/Layouts/ChatLayout';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { useEffect, useState } from 'react';
 
-function Home({ auth }) {
+function Home({ messages }) {
+    const [localMessages, setLocalMessages] = useState([]);
+
+    useEffect(() => {
+        setLocalMessages(messages);
+    }, [messages]);
+
     return (
-        <>Message</>
+        <>
+            {!messages && (
+                <div className='flex flex-col gap-8 justify-center items-center text-center h-full opacity-35'>
+                    <div className='text-2xl md:text-4xl p-16 text-slate-200'>
+                        Please slect conversation to see messages
+                    </div>
+                </div>
+            )}
+        </>
     );
 }
 
