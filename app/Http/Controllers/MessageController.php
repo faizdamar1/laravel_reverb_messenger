@@ -39,7 +39,7 @@ class MessageController extends Controller
     {
         $messages = Message::where('group_id', $group->id)
             ->latest()
-            ->paginate(50);
+            ->paginate(10);
 
         return inertia(
             'Home',
