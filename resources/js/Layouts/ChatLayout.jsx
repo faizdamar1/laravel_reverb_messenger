@@ -10,9 +10,6 @@ const ChatLayout = ({ children }) => {
     const conversations = page.props.conversations;
     const selectedConversation = page.props.selectedConversation;
 
-    console.log(conversations);
-
-
     // state
     const [localConversations, setLocalConversations] = useState([]);
     const [sortedConversations, setSortedConversations] = useState([]);
