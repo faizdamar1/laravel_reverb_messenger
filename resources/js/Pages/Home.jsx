@@ -52,7 +52,7 @@ function Home({ selectedConversation = null, messages = null }) {
                             )}
 
                         </div>
-                        {/* <MessageInput conversation={selectedConversation} />  */}
+                        <MessageInput conversation={selectedConversation} />
                     </>
                 )
             }
