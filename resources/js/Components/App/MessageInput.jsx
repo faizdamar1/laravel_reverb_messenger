@@ -1,4 +1,4 @@
-import { PaperAirplaneIcon, PaperClipIcon, PhotoIcon } from "@heroicons/react/24/solid";
+import { FaceSmileIcon, HandThumbUpIcon, PaperAirplaneIcon, PaperClipIcon, PhotoIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import NewMessageInput from "./NewMessageInput";
 
@@ -8,7 +8,7 @@ const MessageInput = ({ conversation = null }) => {
     const [messageSending, setMessageSending] = useState(false);
 
     return (
-        <div className="flex flex-wrap items-start border-t  border-slate-700 py-300">
+        <div className="flex flex-wrap items-start border-t  border-slate-700 py-3">
             <div className="order-2 flex-1 xs:flex-none xs:order-1 p-2">
                 <button className="p-1 text-gray-400 hover:text-gray-300 relative">
                     <PaperClipIcon className="w-6" />
@@ -34,6 +34,17 @@ const MessageInput = ({ conversation = null }) => {
                         </span>
                     </button>
                 </div>
+                {inputErrorMessage && (
+                    <p className="text-xs text-red-400">{inputErrorMessage}</p>
+                )}
+            </div>
+            <div className="order-3 xs:order-3 p-2 flex">
+                <button className="p-1 text-gray-400 hover:text-gray-300">
+                    <FaceSmileIcon className="w-6 h-6" />
+                </button>
+                <button className="p-1 text-gray-400 hover:text-gray-300">
+                    <HandThumbUpIcon className="w-6 h-6" />
+                </button>
             </div>
         </div>
     );
