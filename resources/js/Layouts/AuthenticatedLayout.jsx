@@ -55,21 +55,21 @@ export default function Authenticated({ header, children }) {
                 })
         });
 
-        // return () => {
-        //     conversations.forEach((conversation) => {
-        //         let channel = `message.group.${conversation.id}`;
-        //         if (conversation.is_user) {
-        //             channel = `message.user.${[
-        //                 parseInt(user.id), parseInt(conversation.id)
-        //             ]
-        //                 .sort((a, b) => a - b)
-        //                 .join("-")
-        //                 }`;
-        //         }
+        return () => {
+            conversations.forEach((conversation) => {
+                let channel = `message.group.${conversation.id}`;
+                if (conversation.is_user) {
+                    channel = `message.user.${[
+                        parseInt(user.id), parseInt(conversation.id)
+                    ]
+                        .sort((a, b) => a - b)
+                        .join("-")
+                        }`;
+                }
 
-        //         Echo.leave(channel);
-        //     });
-        // }
+                Echo.leave(channel);
+            });
+        }
     }, [conversations])
 
 
