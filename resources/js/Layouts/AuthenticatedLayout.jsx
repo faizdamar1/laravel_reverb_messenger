@@ -1,14 +1,76 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 
+
 export default function Authenticated({ header, children }) {
     const page = usePage();
     const user = page.props.auth.user;
+    const conversations = page.props.conversations;
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+
+    useEffect(() => {
+        conversations.forEach((conversation) => {
+
+            let channel = `message.group.${conversation.id}`;
+            if (conversation.is_user) {
+                channel = `message.user.${[
+                    parseInt(user.id), parseInt(conversation.id)
+                ]
+                    .sort((a, b) => a - b)
+                    .join("-")
+                    }`;
+            }
+
+            // console.log("Start listening on channel ", channel);
+
+            Echo.private(channel)
+                .error((error) => {
+                    console.error(error);
+                })
+                .listen("SocketMessage", (e) => {
+
+                    console.log("SocketMessage", e);
+
+                    // if the conversation is not selected
+                    // show notif
+
+                    const message = e.message;
+                    // emit("message.created", message);
+
+                    if (message.sender_id === user.id) {
+                        return;
+                    }
+                    // emit(newMessageNotification, {
+                    //     user: message.sender,
+                    //     group_id: message.group_id,
+                    //     message: message.message ||
+                    //         `Shared ${message.attachments.length === 1
+                    //             ? "an attachments"
+                    //             : message.attachments.length + " attachments"}`
+                    // })
+                })
+        });
+
+        // return () => {
+        //     conversations.forEach((conversation) => {
+        //         let channel = `message.group.${conversation.id}`;
+        //         if (conversation.is_user) {
+        //             channel = `message.user.${[
+        //                 parseInt(user.id), parseInt(conversation.id)
+        //             ]
+        //                 .sort((a, b) => a - b)
+        //                 .join("-")
+        //                 }`;
+        //         }
+
+        //         Echo.leave(channel);
+        //     });
+        // }
+    }, [conversations])
 
 
     return (

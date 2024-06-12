@@ -87,7 +87,7 @@ const ChatLayout = ({ children }) => {
                 });
             })
             .error((error) => {
-                console.log("error", user);
+                console.log("error", error);
             });
 
         return () => {
