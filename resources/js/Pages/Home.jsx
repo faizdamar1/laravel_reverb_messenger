@@ -37,6 +37,10 @@ function Home({ selectedConversation = null, messages = null }) {
     }
 
     const loadMoreMessages = useCallback(() => {
+
+        if (noMoreMessages) {
+            return;
+        }
         const firstMessage = localMessages[0];
         axios
             .get(route('message.loadOlder', firstMessage.id))
@@ -63,7 +67,7 @@ function Home({ selectedConversation = null, messages = null }) {
             .catch((error) => {
                 console.error(error);
             })
-    }, [localMessages]);
+    }, [localMessages, noMoreMessages]);
 
     useEffect(() => {
         setTimeout(() => {
