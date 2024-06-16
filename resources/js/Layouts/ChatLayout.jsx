@@ -3,6 +3,7 @@ import TextInput from "@/Components/TextInput";
 import { usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import { PencilSquareIcon } from '@heroicons/react/24/solid'
+import { useEventBus } from "@/EventBus";
 
 const ChatLayout = ({ children }) => {
 
@@ -14,6 +15,7 @@ const ChatLayout = ({ children }) => {
     const [localConversations, setLocalConversations] = useState([]);
     const [sortedConversations, setSortedConversations] = useState([]);
     const [onlineUsers, setOnlineUsers] = useState({});
+    const { on } = useEventBus();
 
     const isUserOnline = (userId) => onlineUsers[userId];
 
@@ -28,6 +30,45 @@ const ChatLayout = ({ children }) => {
         );
     }
 
+    const messageCreated = (message) => {
+        setLocalConversations((oldUsers) => {
+
+            return oldUsers.map((u) => {
+                // message for user
+                if (
+                    message.receiver_id &&
+                    !u.is_group &&
+                    (u.id == message.sender_id || u.id == message.receiver_id)
+                ) {
+                    u.last_message = message.message;
+                    u.last_message_date = message.created_at;
+
+                    return u;
+                }
+
+                // message for group
+                if (
+                    message.group_id &&
+                    u.is_group &&
+                    u.id == message.group_id
+                ) {
+                    u.last_message = message.message;
+                    u.last_message_date = message.created_at;
+
+                    return u;
+                }
+
+                return u;
+            });
+        });
+    };
+
+    useEffect(() => {
+        const offCreated = on("message.created", messageCreated);
+        return () => {
+            offCreated();
+        }
+    }, [on]);
 
     useEffect(() => {
         setSortedConversations(
@@ -100,7 +141,7 @@ const ChatLayout = ({ children }) => {
         <>
             <div className="flex-1 w-full flex overflow-hidden">
                 <div
-                    className={`transition-all w-full sm:w-[220px] md:[300px] bg-slate-800 flex 
+                    className={`transition-all w-full sm:w-[270px] md:[300px] bg-slate-800 flex 
                         flex-col overflow-hidden ${selectedConversation ? "-ml-[100%] sm:ml-0" : ""}`}
                 >
                     <div className="flex items-center justify-between py-2 px-3 text-xl font-medium text-gray-200">

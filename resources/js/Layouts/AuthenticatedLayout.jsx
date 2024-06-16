@@ -34,8 +34,6 @@ export default function Authenticated({ header, children }) {
                 })
                 .listen("SocketMessage", (e) => {
 
-                    console.log("SocketMessage", e);
-
                     // if the conversation is not selected
                     // show notif
                     const message = e.message;

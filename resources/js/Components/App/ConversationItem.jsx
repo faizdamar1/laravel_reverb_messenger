@@ -2,6 +2,7 @@ import { Link, usePage } from "@inertiajs/react";
 import UserAvatar from "./UserAvatar";
 import UserOptionDropdown from "./UserOptionDropdown";
 import GroupAvatar from "./GroupAvatar";
+import { formatMessageDateShort } from "@/Pages/helpers";
 
 const ConversationItem = ({
     conversation,
@@ -33,7 +34,7 @@ const ConversationItem = ({
     }
     return (
         <Link
-            href={
+            to={
                 conversation.is_group
                     ? route('chat.group', conversation)
                     : route('chat.user', conversation)
@@ -67,7 +68,7 @@ const ConversationItem = ({
                     </h3>
                     {conversation.last_message_date && (
                         <span className="text-nowrap">
-                            {conversation.last_message_date}
+                            {formatMessageDateShort(conversation.last_message_date)}
                         </span>
                     )}
                 </div>

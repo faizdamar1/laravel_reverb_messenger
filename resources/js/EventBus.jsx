@@ -14,7 +14,7 @@ export const EventBusProvider = ({ children }) => {
     }
 
     const on = (name, cb) => {
-        if (!events[name], cb) {
+        if (!events[name]) {
             events[name] = [];
         }
 
