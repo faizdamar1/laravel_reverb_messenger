@@ -34,7 +34,7 @@ const ConversationItem = ({
     }
     return (
         <Link
-            to={
+            href={
                 conversation.is_group
                     ? route('chat.group', conversation)
                     : route('chat.user', conversation)
