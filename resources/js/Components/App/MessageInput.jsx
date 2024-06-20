@@ -6,7 +6,7 @@ import { Popover } from "@headlessui/react";
 import EmojiPicker from "emoji-picker-react";
 import CustomAudioPlayer from "./CustomAudioPlayer";
 import AttachmentPreview from "./AttachmentPreview";
-import { isImage } from "@/Pages/helpers";
+import { isAudio, isImage } from "@/Pages/helpers";
 
 const MessageInput = ({ conversation = null }) => {
     const [newMessage, setNewMessage] = useState("");
@@ -60,8 +60,6 @@ const MessageInput = ({ conversation = null }) => {
                 const progress = Math.round(
                     (progressEvent.loaded / progressEvent.total) * 100
                 );
-
-                console.log(progress);
                 setUploadProgress(progress);
             }
         })
@@ -146,15 +144,16 @@ const MessageInput = ({ conversation = null }) => {
                 )}
                 <div className="flex flex-wrap">
                     {chosenFiles.map((file) => (
-                        <div className={`relative flex justify-between cursor-pointer ` +
+                        <div key={file.file.name} className={`relative flex justify-between cursor-pointer ` +
                             (!isImage(file.file) ? " w-[240px]" : "")
                         }>
-                            {isImage(file) && (
+                            {isImage(file.file) && (
                                 <img src={file.url} className="w-16 h-16 object-cover" alt="" />
                             )}
-                            {isAudio(file) && (
+                            {isAudio(file.file) && (
                                 <CustomAudioPlayer file={file} showVolume={false} />
-                            )}{!isAudio(file) && !isImage(file) && (
+                            )}
+                            {!isAudio(file.file) && !isImage(file.file) && (
                                 <AttachmentPreview file={file} />
                             )}
 
