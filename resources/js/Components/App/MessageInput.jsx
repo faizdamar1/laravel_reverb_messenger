@@ -4,6 +4,9 @@ import NewMessageInput from "./NewMessageInput";
 import axios from "axios";
 import { Popover } from "@headlessui/react";
 import EmojiPicker from "emoji-picker-react";
+import CustomAudioPlayer from "./CustomAudioPlayer";
+import AttachmentPreview from "./AttachmentPreview";
+import { isImage } from "@/Pages/helpers";
 
 const MessageInput = ({ conversation = null }) => {
     const [newMessage, setNewMessage] = useState("");

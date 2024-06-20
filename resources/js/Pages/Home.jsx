@@ -9,11 +9,14 @@ import { useEventBus } from '@/EventBus';
 import axios from 'axios';
 
 
+
 function Home({ selectedConversation = null, messages = null }) {
 
     const [localMessages, setLocalMessages] = useState([]);
     const [scrollFromBottom, setScrollFromBottom] = useState(0);
     const [noMoreMessages, setNoMoreMessages] = useState(false);
+    const [showAttachmentPreview, setShowAttachmentPreview] = useState(false);
+    const [previewAttachment, setPreviewAttachment] = useState({});
     const loadMoreIntersect = useRef();
     const messagesCtrRef = useRef(null);
     const { on } = useEventBus();
@@ -68,6 +71,13 @@ function Home({ selectedConversation = null, messages = null }) {
                 console.error(error);
             })
     }, [localMessages, noMoreMessages]);
+
+    const onAttachmentClick = (attachments, ind) => {
+        setPreviewAttachment({
+            attachments, ind
+        });
+        setShowAttachmentPreview(true);
+    }
 
     useEffect(() => {
         setTimeout(() => {
@@ -148,7 +158,7 @@ function Home({ selectedConversation = null, messages = null }) {
                                 <div className='flex-1 flex flex-col '>
                                     <div ref={loadMoreIntersect}></div>
                                     {localMessages.map((message) => (
-                                        <MessageItem key={message.id} message={message} />
+                                        <MessageItem key={message.id} message={message} attachmentClick={onAttachmentClick} />
                                     ))}
                                 </div>
                             )}
@@ -158,6 +168,14 @@ function Home({ selectedConversation = null, messages = null }) {
                     </>
                 )
             }
+            {previewAttachment.attachments && (
+                <AttachmentPreviewModel
+                    attachments={previewAttachment.attachments}
+                    index={previewAttachment.ind}
+                    show={showAttachmentPreview}
+                    onClose={() => setShowAttachmentPreview(false)}
+                />
+            )}
         </>
     );
 }
