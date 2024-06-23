@@ -1,5 +1,6 @@
 import { isPreviewable } from '@/Pages/helpers';
-import React, { useState } from 'react'
+import { Transition } from '@headlessui/react';
+import React, { Fragment, useEffect, useState } from 'react'
 
 const AttachmentPreviewModel = ({
     attachments,
@@ -18,10 +19,33 @@ const AttachmentPreviewModel = ({
         return attachments.filter((attachment) => isPreviewable(attachment));
     }, [attachments])
 
-    return (
-        <div>
+    const close = () => {
+        onClose();
+    }
 
-        </div>
+    const prev = () => {
+        if (currentIndex === 0) { return; }
+        setCurrentIndex(currentIndex - 1);
+    }
+
+    const next = () => {
+        if (currentIndex === previewableAttachments.length - 1) { return; }
+        setCurrentIndex(currentIndex + 1);
+    }
+
+    useEffect(() => {
+        setCurrentIndex(index);
+    }, [index])
+
+
+    return (
+        <Transition
+            show={show}
+            as={Fragment}
+            leave='duration-200'
+        >
+
+        </Transition>
     )
 }
 
