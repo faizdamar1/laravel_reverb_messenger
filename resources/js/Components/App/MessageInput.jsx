@@ -159,9 +159,12 @@ const MessageInput = ({ conversation = null }) => {
 
                             <button
                                 onClick={() => {
+
                                     setChosenFiles(
                                         chosenFiles.filter(
-                                            (f) => f.file !== file.file.name
+                                            (f) => {
+                                                return f.file.name !== file.file.name
+                                            }
                                         )
                                     )
                                 }}
