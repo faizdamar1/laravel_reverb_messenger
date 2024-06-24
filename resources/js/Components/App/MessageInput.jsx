@@ -35,7 +35,7 @@ const MessageInput = ({ conversation = null }) => {
         if (messageSending) {
             return;
         }
-        if (newMessage.trim() === "") {
+        if (newMessage.trim() === "" && chosenFiles.length === 0) {
             setInputErrorMessage("Please provide a message or upload a attachments");
             setTimeout(() => {
                 setInputErrorMessage("");
@@ -142,7 +142,7 @@ const MessageInput = ({ conversation = null }) => {
                 {inputErrorMessage && (
                     <p className="text-xs text-red-400">{inputErrorMessage}</p>
                 )}
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap gap-1 mt-2">
                     {chosenFiles.map((file) => (
                         <div key={file.file.name} className={`relative flex justify-between cursor-pointer ` +
                             (!isImage(file.file) ? " w-[240px]" : "")

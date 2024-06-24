@@ -1,13 +1,14 @@
-import { isAudio, isImage, isPdf, isPreviewable } from '@/Pages/helpers'
+import { isAudio, isVideo, isImage, isPdf, isPreviewable } from '@/Pages/helpers'
 import { ArrowDownTrayIcon, PaperClipIcon, PlayCircleIcon } from '@heroicons/react/24/solid'
 import React from 'react'
 
-const MessageAtatchments = (attachments, attachmentClick) => {
+const MessageAtatchments = ({ attachments, attachmentClick }) => {
 
     return (
         <>
             {attachments.length > 0 && (
                 <div className='mt-2 flex flex-wrap justify-end gap-1'>
+
                     {attachments.map((attachment, ind) => (
                         <div
                             onClick={(ev) => attachmentClick(attachments, ind)}
@@ -15,7 +16,7 @@ const MessageAtatchments = (attachments, attachmentClick) => {
                             className={
                                 `group flex flex-col items-center justify-center text-gray-500 relative cursor-pointer ` +
                                 (isAudio(attachment)
-                                    ? "w-48"
+                                    ? "w-84"
                                     : "w-32 aspect-square bg-blue-100")
                             }
                         >
@@ -48,7 +49,7 @@ const MessageAtatchments = (attachments, attachmentClick) => {
                             )}
                             {isAudio(attachment) && (
                                 <div className='relative flex justify-center items-center'>
-                                    <audio src={attachment.url} controls />
+                                    <audio src={attachment.url} controls></audio>
                                 </div>
                             )}
                             {isPdf(attachment) && (
@@ -65,7 +66,7 @@ const MessageAtatchments = (attachments, attachmentClick) => {
                                     className='flex flex-col justify-center items-center'
                                 >
                                     <PaperClipIcon className='w-10 h-10 mb-3' />
-                                    <small>{attachment.name}</small>
+                                    <small className='text-center'>{attachment.name}</small>
                                 </a>
                             )}
 
