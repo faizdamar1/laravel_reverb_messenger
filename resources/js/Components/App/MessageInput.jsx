@@ -4,6 +4,7 @@ import NewMessageInput from "./NewMessageInput";
 import axios from "axios";
 import { Popover } from "@headlessui/react";
 import EmojiPicker from "emoji-picker-react";
+import { isAudio, isImage } from "@/Pages/helpers";
 
 const MessageInput = ({ conversation = null }) => {
     const [newMessage, setNewMessage] = useState("");
@@ -143,7 +144,7 @@ const MessageInput = ({ conversation = null }) => {
                 )}
                 <div className="flex flex-wrap">
                     {chosenFiles.map((file) => (
-                        <div className={`relative flex justify-between cursor-pointer ` +
+                        <div key={file.file.name} className={`relative flex justify-between cursor-pointer ` +
                             (!isImage(file.file) ? " w-[240px]" : "")
                         }>
                             {isImage(file) && (
