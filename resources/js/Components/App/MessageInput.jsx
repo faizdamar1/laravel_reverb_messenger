@@ -5,6 +5,8 @@ import axios from "axios";
 import { Popover } from "@headlessui/react";
 import EmojiPicker from "emoji-picker-react";
 import { isAudio, isImage } from "@/Pages/helpers";
+import CustomAudioPlayer from "./CustomAudioPlayer";
+import AttachmentPreview from "./AttachmentPreview";
 
 const MessageInput = ({ conversation = null }) => {
     const [newMessage, setNewMessage] = useState("");
@@ -33,7 +35,7 @@ const MessageInput = ({ conversation = null }) => {
         if (messageSending) {
             return;
         }
-        if (newMessage.trim() === "") {
+        if (newMessage.trim() === "" && chosenFiles.length === 0) {
             setInputErrorMessage("Please provide a message or upload a attachments");
             setTimeout(() => {
                 setInputErrorMessage("");
@@ -58,8 +60,6 @@ const MessageInput = ({ conversation = null }) => {
                 const progress = Math.round(
                     (progressEvent.loaded / progressEvent.total) * 100
                 );
-
-                console.log(progress);
                 setUploadProgress(progress);
             }
         })
@@ -142,25 +142,29 @@ const MessageInput = ({ conversation = null }) => {
                 {inputErrorMessage && (
                     <p className="text-xs text-red-400">{inputErrorMessage}</p>
                 )}
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap gap-1 mt-2">
                     {chosenFiles.map((file) => (
                         <div key={file.file.name} className={`relative flex justify-between cursor-pointer ` +
                             (!isImage(file.file) ? " w-[240px]" : "")
                         }>
-                            {isImage(file) && (
+                            {isImage(file.file) && (
                                 <img src={file.url} className="w-16 h-16 object-cover" alt="" />
                             )}
-                            {isAudio(file) && (
+                            {isAudio(file.file) && (
                                 <CustomAudioPlayer file={file} showVolume={false} />
-                            )}{!isAudio(file) && !isImage(file) && (
+                            )}
+                            {!isAudio(file.file) && !isImage(file.file) && (
                                 <AttachmentPreview file={file} />
                             )}
 
                             <button
                                 onClick={() => {
+
                                     setChosenFiles(
                                         chosenFiles.filter(
-                                            (f) => f.file !== file.file.name
+                                            (f) => {
+                                                return f.file.name !== file.file.name
+                                            }
                                         )
                                     )
                                 }}
