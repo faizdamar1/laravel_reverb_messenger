@@ -1,6 +1,6 @@
 import { useEventBus } from '@/EventBus';
 import { Menu, Transition } from '@headlessui/react'
-import { EllipsisVerticalIcon, LockClosedIcon, LockOpenIcon, ShieldCheckIcon, TrashIcon, UserIcon } from '@heroicons/react/24/solid';
+import { EllipsisVerticalIcon, TrashIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import { Fragment } from 'react';
 
@@ -15,8 +15,10 @@ export default function MessageOptionDropdown({ message }) {
         axios
             .delete(route("message.destroy", message.id))
             .then((res) => {
-                emit('message.deleted', message);
+                emit('message.deleted', { message, prevMessage: res.data.message });
+
                 console.log(res.data);
+                debugger;
             })
             .catch((err) => {
                 console.error(err);
