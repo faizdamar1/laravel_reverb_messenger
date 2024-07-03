@@ -16,9 +16,6 @@ export default function MessageOptionDropdown({ message }) {
             .delete(route("message.destroy", message.id))
             .then((res) => {
                 emit('message.deleted', { message, prevMessage: res.data.message });
-
-                console.log(res.data);
-                debugger;
             })
             .catch((err) => {
                 console.error(err);

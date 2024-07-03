@@ -108,7 +108,7 @@ class MessageController extends Controller
         }
 
         if ($groupId) {
-            Conversation::updateGroupWithMessage($groupId, $message);
+            Group::updateGroupWithMessage($groupId, $message);
         }
 
         SocketMessage::dispatch($message);

@@ -33,7 +33,7 @@ const MessageItem = ({ message, attachmentClick }) => {
                     )}
                     <div className="chat-message">
                         <div className="chat-message-content">
-                            <ReactMarkdown>{message.message + "sld"}</ReactMarkdown>
+                            <ReactMarkdown>{message.message}</ReactMarkdown>
                         </div>
                         <MessageAtatchments
                             attachments={message.attachments}
