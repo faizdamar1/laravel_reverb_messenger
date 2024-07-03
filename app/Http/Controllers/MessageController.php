@@ -11,6 +11,7 @@ use App\Models\Message;
 use App\Models\MessageAttachment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceResponse;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -120,7 +121,26 @@ class MessageController extends Controller
             return response()->json(['message' => 'Forbiden'], 403);
         }
 
+        $group = null;
+        $conversation = null;
+        if ($message->group_id) {
+            $group = Group::where('last_message_id', $message->id)->first();
+        } else {
+            $conversation = Conversation::where('last_message_id', $message->id)->first();
+        }
+
         $message->delete();
-        return response('', 204);
+
+        if ($group) {
+            $group = Group::find($group->id);
+            $lastMessage = $group->lastMessage;
+        } else if ($conversation) {
+            $conversation = Conversation::find($conversation->id);
+            $lastMessage = $conversation->lastMessage;
+        }
+
+        return response()->json([
+            'message' => $lastMessage ? new MessageResource($lastMessage) : null
+        ]);
     }
 }
