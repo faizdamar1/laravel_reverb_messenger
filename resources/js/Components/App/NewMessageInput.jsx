@@ -1,10 +1,12 @@
+import Echo from 'laravel-echo';
 import React, { useEffect, useRef } from 'react'
 
-const NewMessageInput = ({ value, onChange, onSend }) => {
+const NewMessageInput = ({ value, onChange, onSend, onKeyDown }) => {
 
     const input = useRef();
 
     const onInputKeyDown = (ev) => {
+        onKeyDown();
         if (ev.key === "Enter" && !ev.shiftKey) {
             ev.preventDefault();
             onSend();

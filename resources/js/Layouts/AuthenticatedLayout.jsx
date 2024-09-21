@@ -34,6 +34,9 @@ export default function Authenticated({ header, children }) {
                 .error((error) => {
                     console.error(error);
                 })
+                .listenForWhisper("typing", (response) => {
+                    console.log("typing...");
+                })
                 .listen("SocketMessage", (e) => {
 
                     // if the conversation is not selected
