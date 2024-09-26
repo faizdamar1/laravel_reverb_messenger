@@ -1,5 +1,5 @@
 import { FaceSmileIcon, HandThumbUpIcon, PaperAirplaneIcon, PaperClipIcon, PhotoIcon, XCircleIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NewMessageInput from "./NewMessageInput";
 import axios from "axios";
 import { Popover } from "@headlessui/react";
@@ -9,6 +9,7 @@ import CustomAudioPlayer from "./CustomAudioPlayer";
 import AttachmentPreview from "./AttachmentPreview";
 import AudioRecorder from "./AudioRecorder";
 import { usePage } from "@inertiajs/react";
+import { useEventBus } from "@/EventBus";
 
 
 const MessageInput = ({ conversation = null }) => {
@@ -21,6 +22,26 @@ const MessageInput = ({ conversation = null }) => {
     const [messageSending, setMessageSending] = useState(false);
     const [chosenFiles, setChosenFiles] = useState([]);
     const [uploadProgress, setUploadProgress] = useState(0);
+
+    const [typing, setTyping] = useState(false);
+    const { on } = useEventBus();
+
+    useEffect(() => {
+        const handleTyping = ({ conv }) => {
+            if (conversation.id === conv.id) {
+                setTyping(true);
+                setTimeout(() => {
+                    setTyping(false);
+                }, 3000);
+            }
+        };
+
+        const unsubscribe = on('message.typing', handleTyping);
+
+        return () => {
+            unsubscribe();
+        };
+    }, [conversation, on]);
 
     const onfileChange = (ev) => {
         const files = ev.target.files;
@@ -132,7 +153,10 @@ const MessageInput = ({ conversation = null }) => {
 
     return (
         <div className="flex flex-col">
-            <div className="px-5 py-1">typing...</div>
+            {typing && (
+                <div className="px-5 py-1">typing...</div>
+            )}
+
             <div className="flex flex-wrap items-start border-t  border-slate-700 py-3">
                 <div className="order-2 flex-1 xs:flex-none xs:order-1 p-2">
                     <button className="p-1 text-gray-400 hover:text-gray-300 relative">
